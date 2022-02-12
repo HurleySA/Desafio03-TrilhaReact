@@ -36,7 +36,6 @@ jest.mock('../../hooks/useCart', () => {
 describe('Header Component', () => {
   it('should be able to render the amount of products added to cart', () => {
     const { getByTestId } = render(<Header />);
-
     const cartSizeCounter = getByTestId('cart-size');
     expect(cartSizeCounter).toHaveTextContent('2 itens');
   });

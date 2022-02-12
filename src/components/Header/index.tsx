@@ -11,7 +11,7 @@ const Header = (): JSX.Element => {
 
 
   const cartSize = cart.reduce((acc, product) => {
-    return acc + product.amount
+    return acc + 1;
   }, 0)
 
   return (

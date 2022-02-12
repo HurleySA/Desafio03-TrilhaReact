@@ -38,11 +38,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const existCart = copyCart.find(product => product.id === productId);
 
       const stock = await api.get(`/stock/${productId}`);
-      
-
       const maxAmount = stock.data.amount;
+      
       const atualAmount = existCart ? existCart.amount : 0;
       const amount = atualAmount + 1;
+      console.log({existCart, atualAmount, amount, maxAmount})
       
       if(amount > maxAmount){
         toast.error('Quantidade solicitada fora de estoque');
@@ -73,6 +73,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     try {
       const copyCart = [...cart];
       const existCart = copyCart.find(product => product.id === productId);
+      if(!existCart) throw new Error();
       const newCopy = copyCart.filter((product) => product.id !== productId);
       
       localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCopy));
@@ -94,7 +95,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const stock = await api.get(`/stock/${productId}`);  
       const maxAmount = stock.data.amount;
       
-      if(amount > maxAmount || amount < 0){
+      if(amount > maxAmount || amount <= 0){
         toast.error('Quantidade solicitada fora de estoque');
       }else{
         if(existCart){
