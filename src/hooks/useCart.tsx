@@ -58,11 +58,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
           }
           copyCart.push(newProduct);
         }
-  
+        localStorage.setItem('@RocketShoes:cart', JSON.stringify(copyCart));
+        setCart(copyCart);
       }
 
-      localStorage.setItem('@RocketShoes:cart', JSON.stringify(copyCart));
-      setCart(copyCart);
+     
 
     } catch {
       toast.error('Erro na adição do produto');
